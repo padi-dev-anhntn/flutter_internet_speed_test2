@@ -107,7 +107,7 @@
 //             DateTime.now().millisecondsSinceEpoch - startDownloadTimeStamp;
 //         final downloadResult = TestResult(TestType.DOWNLOAD, transferRate, unit,
 //             durationInMillis: downloadDuration);
-//
+//.
 //         if (onProgress != null) onProgress!(100, downloadResult);
 //         if (onDownloadComplete != null) onDownloadComplete!(downloadResult);
 //

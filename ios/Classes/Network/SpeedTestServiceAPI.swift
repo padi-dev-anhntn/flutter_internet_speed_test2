@@ -21,7 +21,7 @@ protocol SpeedService {
 
 extension SpeedService {
     func calculate(bytes: Int64, seconds: TimeInterval) -> Speed {
-        return Speed(bytes: bytes, seconds: seconds).pretty
+        return Speed(bytes: bytes, seconds: seconds)
     }
     
     func sessionConfiguration(timeout: TimeInterval) -> URLSessionConfiguration {

@@ -90,14 +90,11 @@ void startCustomSpeedTest() {
 # Default Server URLs
 If no custom server URLs are provided, the plugin will use the following default URLs:
 
-# Download Servers:
+-  Download Servers:
+ https://fast.com/
 
-https://fast.com/
-http://speedtest.ftp.otenet.gr/files/test1Mb.db
-Upload Servers:
-
-https://fast.com/
-http://speedtest.ftp.otenet.gr/
+- Upload Servers:
+ https://fast.com/
 
 # Custom Options
 You can override the default settings with custom values:

@@ -18,6 +18,9 @@
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/connectivity_plus/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/connectivity_plus/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/connectivity_plus/build" />
+      <excludeFolder url="file://$MODULE_DIR$/example/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/Pods" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

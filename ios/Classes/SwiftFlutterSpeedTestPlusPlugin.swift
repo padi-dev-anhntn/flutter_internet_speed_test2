@@ -1,21 +1,21 @@
 public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
     let DEFAULT_FILE_SIZE = 10485760
     let DEFAULT_TEST_TIMEOUT = 20000
-    
+
     var callbackById: [Int: () -> ()] = [:]
-    
+
     let speedTest = SpeedTest()
     static var channel: FlutterMethodChannel!
-    
+
     private let logger = Logger()
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         channel = FlutterMethodChannel(name: "com.shaz.plugin.fist/method", binaryMessenger: registrar.messenger())
-        
+
         let instance = SwiftInternetSpeedTestPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
-    
+
     private func mapToCall(result: FlutterResult, arguments: Any?) {
         let argsMap = arguments as! [String: Any]
         let args = argsMap["id"] as! Int
@@ -35,7 +35,7 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
             break
         }
     }
-    
+
     private func toggleLog(result: FlutterResult, arguments: Any?) {
         let argsMap = arguments as! [String: Any]
         if(argsMap["value"] != nil){
@@ -43,17 +43,17 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
             logger.enabled = logValue
         }
     }
-    
+
     private func cancelTasks(result: FlutterResult, arguments: Any?) {
         self.speedTest.cancelTasks()
         result(true)
     }
-    
+
     func startListening(args: Any, flutterResult: FlutterResult, methodName:String, testServer: String, fileSize: Int) {
         logger.printLog(message: "Method name is \(methodName)")
         let currentListenerId = args as! Int
         logger.printLog(message: "id is \(currentListenerId)")
-        
+
         let fun = {
             if (self.callbackById.contains(where: { (key, _) -> Bool in
                 self.logger.printLog(message: "does contain key \(key == currentListenerId)")
@@ -135,7 +135,7 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
         callbackById[currentListenerId] = fun
         fun()
     }
-    
+
     func cancelListening(arguments: Any, result: @escaping FlutterResult) {
         print("Cancel Test received arguments: \(arguments)")  // Print the received arguments to debug
 
@@ -146,7 +146,7 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
 
         if let id1 = argsMap["id1"] as? Int, let id2 = argsMap["id2"] as? Int {
             print("Canceling tests for id1: \(id1) and id2: \(id2)")
-            
+
             self.speedTest.cancelTasks()
 
             var argsMapToReturn: [String: Any] = [:]
@@ -173,7 +173,7 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
         }
         return rate
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if (call.method == "startListening") {
             mapToCall(result: result, arguments: call.arguments)
@@ -183,10 +183,10 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
          cancelListening(arguments: call.arguments, result: result)
         }
     }
-    
+
     class Logger{
         var enabled = false
-        
+
         func printLog(message: String){
             if(enabled){
                 print(message)

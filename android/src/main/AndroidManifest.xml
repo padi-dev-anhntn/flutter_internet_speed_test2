@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shaz.plugin.fist.flutter_internet_speed_test">
+    package="package com.softradix.flutter_speed_test_plus">
 
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

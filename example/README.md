@@ -1,6 +1,6 @@
-# flutter_internet_speed_test_example
+# flutter_speed_test_plus_example
 
-Demonstrates how to use the flutter_internet_speed_test plugin.
+Demonstrates how to use the flutter_speed_test_plus plugin.
 
 ## Getting Started
 

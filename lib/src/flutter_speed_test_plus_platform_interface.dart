@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_internet_speed_test/src/models/server_selection_response.dart';
+import 'package:flutter_speed_test_plus/flutter_speed_test_plus.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:tuple_dart/tuple.dart';
 
-import 'callbacks_enum.dart';
-import 'flutter_internet_speed_test_method_channel.dart';
+import 'flutter_speed_test_plus_method_channel.dart';
+import 'models/server_selection_response.dart';
 
 typedef CancelListening = void Function();
 typedef DoneCallback = void Function(double transferRate, SpeedUnit unit);

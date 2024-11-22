@@ -1,4 +1,6 @@
-import 'package:flutter_internet_speed_test/src/callbacks_enum.dart';
+
+
+import '../flutter_speed_test_plus.dart';
 
 class TestResult {
   final TestType type;

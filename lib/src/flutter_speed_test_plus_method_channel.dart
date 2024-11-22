@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_internet_speed_test/src/models/server_selection_response.dart';
-import 'package:flutter_internet_speed_test/src/speed_test_utils.dart';
+import 'package:flutter_speed_test_plus/src/models/server_selection_response.dart';
+import 'package:flutter_speed_test_plus/src/speed_test_utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:tuple_dart/tuple.dart';
 
 import 'callbacks_enum.dart';
-import 'flutter_internet_speed_test_platform_interface.dart';
+import 'flutter_speed_test_plus_platform_interface.dart';
 
 /// An implementation of [FlutterInternetSpeedTestPlatform] that uses method channels.
 class MethodChannelFlutterInternetSpeedTest

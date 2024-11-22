@@ -10,16 +10,16 @@ public final class SpeedTest {
     private let pingService: HostPingService
     private let downloadService = CustomHostDownloadService()
     private let uploadService = CustomHostUploadService()
-    
+
     public required init(hosts: HostsProviderService, ping: HostPingService) {
         self.hostService = hosts
         self.pingService = ping
     }
-    
+
     public convenience init() {
         self.init(hosts: SpeedTestService(), ping: DefaultHostPingService())
     }
-    
+
     public func findHosts(timeout: TimeInterval, closure: @escaping (Result<[SpeedTestHost], SpeedTestError>) -> ()) {
         hostService.getHosts(timeout: timeout) { result in
             switch result {
@@ -34,7 +34,7 @@ public final class SpeedTest {
             }
         }
     }
-    
+
     public func findBestHost(from max: Int, timeout: TimeInterval, closure: @escaping (Result<(URL, Int), SpeedTestError>) -> ()) {
         hostService.getHosts(max: max, timeout: timeout) { [weak self] result in
             guard let strongSelf = self else { return }
@@ -52,7 +52,7 @@ public final class SpeedTest {
             }
         }
     }
-    
+
     public func ping(host: SpeedTestHost, timeout: TimeInterval, closure: @escaping (Result<Int, SpeedTestError>) -> ()) {
         pingService.ping(url: host.url, timeout: timeout) { result in
             DispatchQueue.main.async {
@@ -65,7 +65,7 @@ public final class SpeedTest {
             }
         }
     }
-    
+
     public func runDownloadTest(for host: URL, size: Int, timeout: TimeInterval, current: @escaping (Speed) -> (), final: @escaping (Result<Speed, NetworkError>) -> ()) {
         downloadService.test(host,
                              fileSize: size,
@@ -76,7 +76,7 @@ public final class SpeedTest {
                                 final(result)
                             })
     }
-    
+
     public func runUploadTest(for host: URL, size: Int, timeout: TimeInterval, current: @escaping (Speed) -> (), final: @escaping (Result<Speed, NetworkError>) -> ()) {
         uploadService.test(host,
                            fileSize: size,
@@ -87,12 +87,12 @@ public final class SpeedTest {
                             final(result)
                         })
     }
-    
+
     public func cancelTasks(){
         downloadService.cancelTask()
         uploadService.cancelTask()
     }
-    
+
     private func pingAllHosts(hosts: [URL], timeout: TimeInterval, closure: @escaping ([(host: URL, ping: Int)]) -> ()) {
         let group = DispatchGroup()
         var pings = [(URL, Int)]()
@@ -113,7 +113,7 @@ public final class SpeedTest {
             closure(pings)
         }
     }
-    
+
     private func findBestPings(from pings: [(host: URL, ping: Int)]) -> Result<(URL, Int), SpeedTestError> {
         let best = pings.min(by: { (left, right) in
             left.ping < right.ping

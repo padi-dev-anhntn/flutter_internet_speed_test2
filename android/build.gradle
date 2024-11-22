@@ -1,4 +1,6 @@
-group 'com.shaz.plugin.fist.flutter_internet_speed_test'
+package android
+
+group 'com.softradix.flutter_speed_test_plus'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -26,7 +28,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 31
-    namespace 'com.shaz.plugin.fist.flutter_internet_speed_test'
+    namespace 'com.softradix.flutter_speed_test_plus'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

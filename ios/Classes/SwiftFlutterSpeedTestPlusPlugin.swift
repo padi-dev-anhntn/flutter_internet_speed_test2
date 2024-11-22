@@ -10,7 +10,7 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
     private let logger = Logger()
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        channel = FlutterMethodChannel(name: "com.shaz.plugin.fist/method", binaryMessenger: registrar.messenger())
+        channel = FlutterMethodChannel(name: "com.softradix.flutter_speed_test_plus/method", binaryMessenger: registrar.messenger())
 
         let instance = SwiftInternetSpeedTestPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)

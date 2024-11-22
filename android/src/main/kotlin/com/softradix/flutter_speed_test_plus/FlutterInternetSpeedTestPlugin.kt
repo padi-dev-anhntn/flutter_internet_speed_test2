@@ -35,7 +35,7 @@ class FlutterInternetSpeedTestPlugin : FlutterPlugin, MethodCallHandler, Activit
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         applicationContext = flutterPluginBinding.applicationContext
         methodChannel =
-            MethodChannel(flutterPluginBinding.binaryMessenger, "com.shaz.plugin.fist/method")
+            MethodChannel(flutterPluginBinding.binaryMessenger, "com.softradix.flutter_speed_test_plus/method")
         methodChannel.setMethodCallHandler(this)
     }
 

@@ -1,6 +1,6 @@
 name: flutter_speed_test_plus
 description: A Flutter plugin to test internet download and upload speed.
-version: 1.0.2
+version: 1.0.3
 
 homepage: https://github.com/ramandeep-softradix/flutter_internet_speed_test2
 

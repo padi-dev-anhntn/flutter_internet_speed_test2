@@ -14,7 +14,7 @@ import 'flutter_speed_test_plus_platform_interface.dart';
 class MethodChannelFlutterInternetSpeedTest
     extends FlutterInternetSpeedTestPlatform {
   /// The method channel used to interact with the native platform.
-  final _channel = const MethodChannel('com.shaz.plugin.fist/method');
+  final _channel = const MethodChannel('com.softradix.flutter_speed_test_plus/method');
   final _logger = Logger();
 
   Future<void> _methodCallHandler(MethodCall call) async {

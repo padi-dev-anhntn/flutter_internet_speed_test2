@@ -7,7 +7,8 @@ A Flutter plugin designed to measure internet download and upload speeds using w
 3. Option to use custom test server URLs.
 4. Progress tracking and multiple callbacks.
 5. Works on iOS and Android.
-
+# Screenshot
+![speedTest.png](speedTest.png)
 # Getting Started
 Add the plugin to your pubspec.yaml file:
 

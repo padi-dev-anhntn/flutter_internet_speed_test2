@@ -1,5 +1,5 @@
 # Flutter Internet Speed Test Plus
-A Flutter plugin to test internet download and upload speeds using popular services like Fast.com (default) and Speed Test by Ookla.
+A Flutter plugin designed to measure internet download and upload speeds using widely recognized services, such as Fast.com (as the default) and Ookla's Speedtest.
 
 # Features
 1. Test download and upload speeds.

@@ -15,3 +15,6 @@
 
 * iOS bug fixes
 
+## 1.0.4
+
+* Bug fixes 

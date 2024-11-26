@@ -27,7 +27,10 @@
 
 * Getting percents of speed issue fixed
 
-
 ## 1.0.7
 
 * Bug fixes and improvements
+
+## 1.0.8
+
+* Android issue fixed

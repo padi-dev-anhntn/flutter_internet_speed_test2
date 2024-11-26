@@ -2,7 +2,7 @@
     package="com.softradix.flutter_speed_test_plus_example">
 
     <application
-        android:label="flutter_internet_speed_test_example"
+        android:label="flutter_speed_test_plus_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

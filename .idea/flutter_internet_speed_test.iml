@@ -21,6 +21,8 @@
       <excludeFolder url="file://$MODULE_DIR$/example/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/Pods" />
+      <excludeFolder url="file://$MODULE_DIR$/example/android/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/example/android/.idea" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

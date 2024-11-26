@@ -258,8 +258,6 @@ class _MyAppState extends State<MyApp> {
           _downloadRate = download.transferRate;
           _downloadProgress = '100';
           _downloadCompletionTime = download.durationInMillis;
-
-
           _uploadRate = upload.transferRate;
           _uploadProgress = '100';
           _uploadCompletionTime = upload.durationInMillis;

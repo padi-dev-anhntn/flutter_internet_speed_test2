@@ -62,15 +62,12 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
                 self.logger.printLog(message: "inside if")
                 switch methodName {
                 case "startDownloadTesting":
-                    self.speedTest.runDownloadTest(for: URL(string: testServer)!, size: fileSize, timeout: TimeInterval(self.DEFAULT_TEST_TIMEOUT), current: { (currentSpeed) in
-                        let currentSpeedValue = currentSpeed.value
-
-                        let percent = min(100, Int((currentSpeedValue / Double(fileSize)) * 100))
-
+                    self.speedTest.runDownloadTest(for: URL(string: testServer)!, size: fileSize, timeout: TimeInterval(self.DEFAULT_TEST_TIMEOUT), current: { (currentSpeed, percentage) in
+                        print("current percentage: \(percentage)")
                         var argsMap: [String: Any] = [:]
                         argsMap["id"] = currentListenerId
                         argsMap["transferRate"] = self.getSpeedInBytes(speed: currentSpeed)
-                        argsMap["percent"] = percent
+                        argsMap["percent"] = percentage
                         argsMap["type"] = 2
                         DispatchQueue.main.async {
                             SwiftInternetSpeedTestPlugin.channel.invokeMethod("callListener", arguments: argsMap)
@@ -78,13 +75,11 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
                     }, final: { (resultSpeed) in
                         switch resultSpeed {
                         case .value(let finalSpeed):
-                            let finalSpeedValue = finalSpeed.value
 
-                            let percent = min(100, Int((finalSpeedValue / Double(fileSize)) * 100))
                             var argsMap: [String: Any] = [:]
                             argsMap["id"] = currentListenerId
                             argsMap["transferRate"] = self.getSpeedInBytes(speed: finalSpeed)
-                            argsMap["percent"] = percent  // Final percent should be 100
+                            argsMap["percent"] = 100  // Final percent should be 100
                             argsMap["type"] = 0
                             DispatchQueue.main.async {
                                 SwiftInternetSpeedTestPlugin.channel.invokeMethod("callListener", arguments: argsMap)
@@ -101,15 +96,13 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
                     })
                     break
                 case "startUploadTesting":
-                    self.speedTest.runUploadTest(for: URL(string: testServer)!, size: fileSize, timeout: TimeInterval(self.DEFAULT_TEST_TIMEOUT), current: { (currentSpeed) in
-                        let currentSpeedValue = currentSpeed.value
+                    self.speedTest.runUploadTest(for: URL(string: testServer)!, size: fileSize, timeout: TimeInterval(self.DEFAULT_TEST_TIMEOUT), current: { (currentSpeed, percentage) in
 
-                        let percent = min(100, Int((currentSpeedValue / Double(fileSize)) * 100))
-
+                        print("Here is the percent >>>>>",percentage)
                         var argsMap: [String: Any] = [:]
                         argsMap["id"] = currentListenerId
                         argsMap["transferRate"] = self.getSpeedInBytes(speed: currentSpeed)
-                        argsMap["percent"] = percent
+                        argsMap["percent"] = percentage
                         argsMap["type"] = 2
 
                             SwiftInternetSpeedTestPlugin.channel.invokeMethod("callListener", arguments: argsMap)
@@ -117,14 +110,11 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
                     }, final: { (resultSpeed) in
                         switch resultSpeed {
                         case .value(let finalSpeed):
-                            let finalSpeedValue = finalSpeed.value
-
-                            let percent = min(100, Int((finalSpeedValue / Double(fileSize)) * 100))
 
                             var argsMap: [String: Any] = [:]
                             argsMap["id"] = currentListenerId
                             argsMap["transferRate"] = self.getSpeedInBytes(speed: finalSpeed)
-                            argsMap["percent"] = percent  // Final percent should be 100
+                            argsMap["percent"] = 100  // Final percent should be 100
                             argsMap["type"] = 0
                             DispatchQueue.main.async {
                                 SwiftInternetSpeedTestPlugin.channel.invokeMethod("callListener", arguments: argsMap)
@@ -167,7 +157,7 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
             argsMapToReturn["id1"] = id1
             argsMapToReturn["id2"] = id2
             argsMapToReturn["transferRate"] = 0.0
-            argsMapToReturn["percent"] = 100
+            argsMapToReturn["percent"] = 0
             argsMapToReturn["type"] = 3
           SwiftInternetSpeedTestPlugin.channel.invokeMethod("callCancelListener", arguments: argsMapToReturn)
 

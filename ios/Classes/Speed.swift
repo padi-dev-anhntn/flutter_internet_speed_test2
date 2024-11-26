@@ -38,8 +38,15 @@ public struct Speed: CustomStringConvertible {
 
 public extension Speed {
     init(bytes: Int64, seconds: TimeInterval) {
-        let speedInB = Double(bytes) * Speed.bitsInBytes / seconds
+        let speedInB = Double(bytes) * Speed.bitsInBytes / seconds / 1000
+        
         self.value = speedInB
+
         self.units = .Kbps
     }
+    
+    func percentage(of maxSpeed: Double) -> Double {
+          guard maxSpeed > 0 else { return 0 }
+          return (value / maxSpeed) * 100
+      }
 }

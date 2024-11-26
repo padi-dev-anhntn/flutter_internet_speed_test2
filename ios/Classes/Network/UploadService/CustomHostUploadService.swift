@@ -3,12 +3,12 @@ import Foundation
 class CustomHostUploadService: NSObject, SpeedService {
     private var responseDate: Date?
     private var latestDate: Date?
-    private var current: ((Speed, Speed) -> ())!
+    private var current: ((Speed, Speed, Double) -> ())!
     private var final: ((Result<Speed, NetworkError>) -> ())!
 
     private var task: URLSessionTask?
 
-    func test(_ url: URL, fileSize: Int, timeout: TimeInterval, current: @escaping (Speed, Speed) -> (), final: @escaping (Result<Speed, NetworkError>) -> ()) {
+    func test(_ url: URL, fileSize: Int, timeout: TimeInterval, current: @escaping (Speed, Speed, Double) -> (), final: @escaping (Result<Speed, NetworkError>) -> ()) {
         self.current = current
         self.final = final
         var request = URLRequest(url: url)
@@ -18,7 +18,7 @@ class CustomHostUploadService: NSObject, SpeedService {
                                        "Content-Length": "\(fileSize)",
                                        "Connection": "keep-alive"]
 
-        task = URLSession(configuration: sessionConfiguration(timeout: timeout / 1000), delegate: self, delegateQueue: OperationQueue.main)
+        task = URLSession(configuration: sessionConfiguration(timeout:  timeout), delegate: self, delegateQueue: OperationQueue.main)
             .uploadTask(with: request, from: Data(count: fileSize))
         task?.resume()
     }
@@ -51,8 +51,15 @@ extension CustomHostUploadService: URLSessionTaskDelegate {
         let average = calculate(bytes: totalBytesSent, seconds: -startDate.timeIntervalSinceNow)
 
         latestDate = currentTime
+        
+        // Calculate percentage
+        let percentage = Double(bytesSent) / Double(totalBytesSent) * 100
 
-        self.current(current, average)
+        // Log or use the percentage
+        print("Upload progress: \(percentage)%")
+
+
+        self.current(current, average, percentage)
     }
 
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {

@@ -3,12 +3,13 @@ import Foundation
 class CustomHostDownloadService: NSObject, SpeedService {
     private var responseDate: Date?
     private var latestDate: Date?
-    private var current: ((Speed, Speed) -> ())!
+    private var current: ((Speed, Speed, Double) -> ())!
     private var final: ((Result<Speed, NetworkError>) -> ())!
+
 
     private var task: URLSessionDownloadTask?
 
-    func test(_ url: URL, fileSize: Int, timeout: TimeInterval, current: @escaping (Speed, Speed) -> (), final: @escaping (Result<Speed, NetworkError>) -> ()) {
+    func test(_ url: URL, fileSize: Int, timeout: TimeInterval, current: @escaping (Speed, Speed, Double) -> (), final: @escaping (Result<Speed, NetworkError>) -> ()) {
         self.current = current
         self.final = final
 //         let resultURL = HostURLFormatter(speedTestURL: url).downloadURL(size: fileSize)
@@ -62,6 +63,14 @@ extension CustomHostDownloadService: URLSessionDownloadDelegate {
 
         latestDate = currentTime
 
-       self.current(current, average)
+           // Calculate percentage
+           let percentage = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite) * 100
+
+           // Log or use the percentage
+           print("Download progress: \(percentage)%")
+
+        self.current(current, average, percentage)
     }
+    
+    
 }

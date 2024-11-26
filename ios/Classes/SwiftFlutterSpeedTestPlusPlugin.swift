@@ -1,5 +1,5 @@
 public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
-    let DEFAULT_FILE_SIZE = 10 * 1024 * 1024
+    let DEFAULT_FILE_SIZE = 30 * 1024 * 1024
     let DEFAULT_TEST_TIMEOUT = 20000
 
     var callbackById: [Int: () -> ()] = [:]
@@ -96,7 +96,10 @@ public class SwiftInternetSpeedTestPlugin: NSObject, FlutterPlugin {
                     })
                     break
                 case "startUploadTesting":
-                    self.speedTest.runUploadTest(for: URL(string: testServer)!, size: fileSize, timeout: TimeInterval(self.DEFAULT_TEST_TIMEOUT), current: { (currentSpeed, percentage) in
+                    
+let count = 60_000_000
+                    
+                    self.speedTest.runUploadTest(for: URL(string: testServer)!, size: count, timeout: TimeInterval(self.DEFAULT_TEST_TIMEOUT), current: { (currentSpeed, percentage) in
 
                         print("Here is the percent >>>>>",percentage)
                         var argsMap: [String: Any] = [:]

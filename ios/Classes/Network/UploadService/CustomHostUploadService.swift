@@ -18,6 +18,7 @@ class CustomHostUploadService: NSObject, SpeedService {
                                        "Content-Length": "\(fileSize)",
                                        "Connection": "keep-alive"]
 
+        
         task = URLSession(configuration: sessionConfiguration(timeout:  timeout), delegate: self, delegateQueue: OperationQueue.main)
             .uploadTask(with: request, from: Data(count: fileSize))
         task?.resume()
@@ -52,11 +53,13 @@ extension CustomHostUploadService: URLSessionTaskDelegate {
 
         latestDate = currentTime
         
-        // Calculate percentage
-        let percentage = Double(bytesSent) / Double(totalBytesSent) * 100
-
-        // Log or use the percentage
-        print("Upload progress: \(percentage)%")
+    
+        
+        // Calculate the upload percentage
+           let percentage = Double(totalBytesSent) / Double(totalBytesExpectedToSend) * 100
+           
+           // Print the percentage for debugging
+           print("Upload Progress: \(percentage)%")
 
 
         self.current(current, average, percentage)

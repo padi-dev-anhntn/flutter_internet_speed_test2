@@ -1,4 +1,3 @@
-
 import 'package:flutter_speed_test_plus/src/speed_test_utils.dart';
 import 'package:flutter_speed_test_plus/src/test_result.dart';
 
@@ -7,7 +6,7 @@ import 'flutter_speed_test_plus_platform_interface.dart';
 import 'models/server_selection_response.dart';
 
 typedef DefaultCallback = void Function();
-typedef ResultCallback = void Function(TestResult download, TestResult upload);
+typedef ResultCallback = void Function(TestResult upload);
 typedef TestProgressCallback = void Function(double percent, TestResult data);
 typedef ResultCompletionCallback = void Function(TestResult data);
 typedef DefaultServerSelectionCallback = void Function(Client? client);
@@ -33,7 +32,6 @@ class FlutterInternetSpeedTest {
   Future<void> startTesting({
     required ResultCallback onCompleted,
     DefaultCallback? onStarted,
-    ResultCompletionCallback? onDownloadComplete,
     ResultCompletionCallback? onUploadComplete,
     TestProgressCallback? onProgress,
     DefaultCallback? onDefaultServerSelectionInProgress,
@@ -93,57 +91,27 @@ class FlutterInternetSpeedTest {
       }
     }
 
-    final startDownloadTimeStamp = DateTime.now().millisecondsSinceEpoch;
-    FlutterInternetSpeedTestPlatform.instance.startDownloadTesting(
+    final startUploadTimeStamp = DateTime.now().millisecondsSinceEpoch;
+    FlutterInternetSpeedTestPlatform.instance.startUploadTesting(
       onDone: (double transferRate, SpeedUnit unit) {
-        final downloadDuration =
-            DateTime.now().millisecondsSinceEpoch - startDownloadTimeStamp;
-        final downloadResult = TestResult(TestType.download, transferRate, unit,
-            durationInMillis: downloadDuration);
+        final uploadDuration =
+            DateTime.now().millisecondsSinceEpoch - startUploadTimeStamp;
+        final uploadResult = TestResult(TestType.upload, transferRate, unit,
+            durationInMillis: uploadDuration);
 
-        if (onProgress != null) onProgress(100, downloadResult);
-        if (onDownloadComplete != null) onDownloadComplete(downloadResult);
+        if (onProgress != null) onProgress(100, uploadResult);
+        if (onUploadComplete != null) onUploadComplete(uploadResult);
 
-        final startUploadTimeStamp = DateTime.now().millisecondsSinceEpoch;
-        FlutterInternetSpeedTestPlatform.instance.startUploadTesting(
-          onDone: (double transferRate, SpeedUnit unit) {
-            final uploadDuration =
-                DateTime.now().millisecondsSinceEpoch - startUploadTimeStamp;
-            final uploadResult = TestResult(TestType.upload, transferRate, unit,
-                durationInMillis: uploadDuration);
-
-            if (onProgress != null) onProgress(100, uploadResult);
-            if (onUploadComplete != null) onUploadComplete(uploadResult);
-
-            onCompleted(downloadResult, uploadResult);
-            _isTestInProgress = false;
-            _isCancelled = false;
-          },
-          onProgress: (double percent, double transferRate, SpeedUnit unit) {
-            final uploadProgressResult =
-                TestResult(TestType.upload, transferRate, unit);
-            if (onProgress != null) {
-              onProgress(percent, uploadProgressResult);
-            }
-          },
-          onError: (String errorMessage, String speedTestError) {
-            if (onError != null) onError(errorMessage, speedTestError);
-            _isTestInProgress = false;
-            _isCancelled = false;
-          },
-          onCancel: () {
-            if (onCancel != null) onCancel();
-            _isTestInProgress = false;
-            _isCancelled = false;
-          },
-          fileSize: fileSizeInBytes,
-          testServer: uploadTestServer!,
-        );
+        onCompleted(uploadResult);
+        _isTestInProgress = false;
+        _isCancelled = false;
       },
       onProgress: (double percent, double transferRate, SpeedUnit unit) {
-        final downloadProgressResult =
-            TestResult(TestType.download, transferRate, unit);
-        if (onProgress != null) onProgress(percent, downloadProgressResult);
+        final uploadProgressResult =
+            TestResult(TestType.upload, transferRate, unit);
+        if (onProgress != null) {
+          onProgress(percent, uploadProgressResult);
+        }
       },
       onError: (String errorMessage, String speedTestError) {
         if (onError != null) onError(errorMessage, speedTestError);
@@ -156,7 +124,7 @@ class FlutterInternetSpeedTest {
         _isCancelled = false;
       },
       fileSize: fileSizeInBytes,
-      testServer: downloadTestServer,
+      testServer: uploadTestServer,
     );
   }
 

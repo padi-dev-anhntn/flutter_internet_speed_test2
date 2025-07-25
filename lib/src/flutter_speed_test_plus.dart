@@ -53,9 +53,6 @@ class FlutterInternetSpeedTest {
       return;
     }
 
-    if (fileSizeInBytes < _defaultFileSize) {
-      fileSizeInBytes = _defaultFileSize;
-    }
     _isTestInProgress = true;
 
     if (onStarted != null) onStarted();

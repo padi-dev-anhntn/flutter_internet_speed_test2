@@ -15,7 +15,7 @@ class FlutterInternetSpeedTest {
   static const _defaultDownloadTestServer =
       'http://speedtest.ftp.otenet.gr/files/test10Mb.db';
   static const _defaultUploadTestServer = 'http://speedtest.ftp.otenet.gr/';
-  static const _defaultFileSize = 10 * 1024 * 1024; //10 MB
+  static const defaultFileSize = 10 * 1024 * 1024; //10 MB
 
   static final FlutterInternetSpeedTest _instance =
       FlutterInternetSpeedTest._private();
@@ -40,7 +40,7 @@ class FlutterInternetSpeedTest {
     CancelCallback? onCancel,
     String? downloadTestServer,
     String? uploadTestServer,
-    int fileSizeInBytes = _defaultFileSize,
+    int fileSizeInBytes = defaultFileSize,
     bool useFastApi = true,
   }) async {
     if (_isTestInProgress) {
